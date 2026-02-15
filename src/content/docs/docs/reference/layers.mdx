@@ -5,13 +5,13 @@ sidebar:
 ---
 
 import { Aside } from '@astrojs/starlight/components';
+import StaticImage from '../../../../components/StaticImage.astro';
 
 Layers are the first level of organisational hierarchy in Feature-Sliced Design. Their purpose is to separate code based on how much responsibility it needs and how many other modules in the app it depends on. Every layer carries special semantic meaning to help you determine how much responsibility you should allocate to your code.
 
 There are **7 layers** in total, arranged from most responsibility and&nbsp;dependency to least:
 
-<img src="../../../../../static/img/layers/folders-graphic-light.svg" data-theme-only="light" width="180" style={{ float: "right", margin: "0 1em" }} alt="A file system tree, with a single root folder called src and then seven subfolders: app, processes, pages, widgets, features, entities, shared. The processes folder is slightly faded out." />
-<img src="../../../../../static/img/layers/folders-graphic-dark.svg" data-theme-only="dark" width="180" style={{ float: "right", margin: "0 1em" }} alt="A file system tree, with a single root folder called src and then seven subfolders: app, processes, pages, widgets, features, entities, shared. The processes folder is slightly faded out." />
+<StaticImage path={['/img/layers/folders-graphic-light.svg', '/img/layers/folders-graphic-dark.svg']} width="180" style={{ float: "right", margin: "0 1em" }} alt="A file system tree, with a single root folder called src and then seven subfolders: app, processes, pages, widgets, features, entities, shared. The processes folder is slightly faded out." />
 
 1. App
 2. Processes (deprecated)
