@@ -5,13 +5,18 @@ sidebar:
 ---
 
 import { Aside } from '@astrojs/starlight/components';
+import StaticImage from '../../../../../components/StaticImage.astro';
 
 Layer là cấp độ đầu tiên của hệ thống phân cấp tổ chức trong Feature-Sliced Design. Mục đích của chúng là phân tách code dựa trên mức độ trách nhiệm cần thiết và số lượng module khác trong app mà nó phụ thuộc vào. Mỗi layer mang ý nghĩa ngữ nghĩa đặc biệt để giúp bạn xác định mức độ trách nhiệm mà bạn nên phân bổ cho code của mình.
 
 Có tổng cộng **7 layer**, được sắp xếp từ nhiều trách nhiệm và&nbsp;dependency nhất đến ít nhất:
 
-<img src="../../../../../../static/img/layers/folders-graphic-light.svg" data-theme-only="light" width="180" style={{ float: "right", margin: "0 1em" }} alt="A file system tree, with a single root folder called src and then seven subfolders: app, processes, pages, widgets, features, entities, shared. The processes folder is slightly faded out." />
-<img src="../../../../../../static/img/layers/folders-graphic-dark.svg" data-theme-only="dark" width="180" style={{ float: "right", margin: "0 1em" }} alt="A file system tree, with a single root folder called src and then seven subfolders: app, processes, pages, widgets, features, entities, shared. The processes folder is slightly faded out." />
+<StaticImage
+    path={['/img/layers/folders-graphic-light.svg', '/img/layers/folders-graphic-dark.svg']}
+    width="180"
+    style={{ float: "right", margin: "0 1em" }}
+    alt="A file system tree, with a single root folder called src and then seven subfolders: app, processes, pages, widgets, features, entities, shared. The processes folder is slightly faded out."
+/>
 
 1. App
 2. Processes (deprecated)
@@ -50,9 +55,9 @@ Layer này, giống như layer App, _không chứa slice_. Slice được dùng 
 Dưới đây là các segment mà bạn thường có thể tìm thấy trong layer này:
 
 - `📁 api` — API client và có thể cả các function để thực hiện request đến các endpoint backend cụ thể.
-- `📁 ui` — bộ UI kit của ứng dụng.  
+- `📁 ui` — bộ UI kit của ứng dụng.
   Các component trên layer này không nên chứa business logic, nhưng có thể có chủ đề business. Ví dụ, bạn có thể đặt logo công ty và layout trang ở đây. Các component có UI logic cũng được cho phép (ví dụ: autocomplete hoặc search bar).
-- `📁 lib` — tập hợp các internal library.  
+- `📁 lib` — tập hợp các internal library.
   Folder này không nên được coi như helper hoặc utility ([đọc ở đây tại sao những folder này thường trở thành bãi rác][ext-sova-utility-dump]). Thay vào đó, mỗi library trong folder này nên có một lĩnh vực tập trung, ví dụ: date, color, text manipulation, v.v. Lĩnh vực tập trung đó nên được ghi lại trong file README. Các developer trong team của bạn nên biết có thể thêm gì và không thể thêm gì vào những library này.
 - `📁 config` — environment variable, global feature flag và các cấu hình global khác cho app của bạn.
 - `📁 routes` — route constant hoặc pattern để matching route.

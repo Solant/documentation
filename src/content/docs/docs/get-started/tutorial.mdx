@@ -136,7 +136,7 @@ Whatever is inside folders like `pages/feed` or `shared/ui` is only known to tho
 
 ### Large reused blocks in the UI
 
-Earlier we made a note to revisit the header that appears on every page. Rebuilding it from scratch on every page would be impractical, so it’s only natural to want to reuse it. We already have Shared to facilitate code reuse, however, there’s a caveat to putting large blocks of UI in Shared — the Shared layer is not supposed to know about any of the layers above. 
+Earlier we made a note to revisit the header that appears on every page. Rebuilding it from scratch on every page would be impractical, so it’s only natural to want to reuse it. We already have Shared to facilitate code reuse, however, there’s a caveat to putting large blocks of UI in Shared — the Shared layer is not supposed to know about any of the layers above.
 
 Between Shared and Pages there are three other layers: Entities, Features, and Widgets.  Some projects may have something in those layers that they need in a large reusable block, and that means we can’t put that reusable block in Shared, or else it would be importing from upper layers, which is prohibited. That’s where the Widgets layer comes in. It is located above Shared, Entities, and Features, so it can use them all.
 
@@ -150,9 +150,9 @@ Let’s also examine a page that’s intended for editing, not reading. For exam
 
 It looks trivial, but contains several aspects of application development that we haven’t explored yet — form validation, error states, and data persistence.
 
-If we were to build this page, we would grab some inputs and buttons from Shared and put together a form in the `ui` segment of this page. Then, in the `api` segment, we would define a mutation request to create the article on the backend. 
+If we were to build this page, we would grab some inputs and buttons from Shared and put together a form in the `ui` segment of this page. Then, in the `api` segment, we would define a mutation request to create the article on the backend.
 
-To validate the request before sending, we need a validation schema, and a good place for it is the `model` segment, since it’s the data model. There we will produce error messages and display them using another component in the `ui` segment. 
+To validate the request before sending, we need a validation schema, and a good place for it is the `model` segment, since it’s the data model. There we will produce error messages and display them using another component in the `ui` segment.
 
 To improve user experience, we could also persist the inputs to prevent accidental data loss. This is also a job of the `model` segment.
 
@@ -524,7 +524,7 @@ export function FeedPage() {
       </div>
     </div>
   );
-} 
+}
 ```
 
 Then we need to use the `tag` search parameter in our loader. Change the `loader` function in `pages/feed/api/loader.ts` to the following:

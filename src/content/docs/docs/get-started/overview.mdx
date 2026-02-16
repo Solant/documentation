@@ -5,6 +5,7 @@ sidebar:
 ---
 
 import { FileTree, LinkCard, Aside } from '@astrojs/starlight/components';
+import StaticImage from '../../../../components/StaticImage.astro';
 
 **Feature-Sliced Design** (FSD) is an architectural methodology for scaffolding front-end applications. Simply put, it's a compilation of rules and conventions on organizing code. The main purpose of this methodology is to make the project more understandable and stable in the face of ever-changing business requirements.
 
@@ -52,7 +53,7 @@ These top-level folders are called _layers_. Let's look deeper:
 
 </FileTree>
 
-Folders inside `📂 pages` are called _slices_. They divide the layer by domain (in this case, by pages). 
+Folders inside `📂 pages` are called _slices_. They divide the layer by domain (in this case, by pages).
 
 Folders inside `📂 app`, `📂 shared`, and `📂 pages/article-reader` are called _segments_, and they divide slices (or layers) by technical purpose, i.e. what the code is for.
 
@@ -61,7 +62,10 @@ Folders inside `📂 app`, `📂 shared`, and `📂 pages/article-reader` are ca
 Layers, slices, and segments form a hierarchy like this:
 
 <figure>
-   ![Hierarchy of FSD concepts, described below](../../../../../static/img/visual_schema.jpg)
+    <StaticImage
+        path="/img/visual_schema.jpg"
+        alt="Hierarchy of FSD concepts, described below"
+    />
 
    <figcaption style={{ fontStyle: "italic", fontSize: "0.9em" }}>
       <p>Pictured above: three pillars, labeled left to right as "Layers", "Slices", and "Segments" respectively.</p>
@@ -112,18 +116,18 @@ Usually these segments are enough for most layers, you would only create your ow
 
 ## Advantages \{#advantages\}
 
-- **Uniformity**  
+- **Uniformity**
   Since the structure is standardized, projects become more uniform, which makes onboarding new members easier for the team.
 
-- **Stability in face of changes and refactoring**  
-  A module on one layer cannot use other modules on the same layer, or the layers above.  
+- **Stability in face of changes and refactoring**
+  A module on one layer cannot use other modules on the same layer, or the layers above.
   This allows you to make isolated modifications without unforeseen consequences to the rest of the app.
 
-- **Controlled reuse of logic**  
-  Depending on the layer, you can make code very reusable or very local.  
-  This keeps a balance between following the **DRY** principle and practicality. 
+- **Controlled reuse of logic**
+  Depending on the layer, you can make code very reusable or very local.
+  This keeps a balance between following the **DRY** principle and practicality.
 
-- **Orientation to business and users needs**  
+- **Orientation to business and users needs**
   The app is split into business domains and usage of the business language is encouraged in naming, so that you can do useful product work without fully understanding all other unrelated parts of the project.
 
 ## Incremental adoption \{#incremental-adoption\}

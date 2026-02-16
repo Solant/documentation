@@ -5,6 +5,7 @@ sidebar:
 ---
 
 import { FileTree, Aside } from '@astrojs/starlight/components';
+import StaticImage from '../../../../../components/StaticImage.astro';
 
 Public API 是一组模块（如 slice）与使用它的代码之间的_契约_。它也充当网关，只允许访问某些对象，并且只能通过该 public API 访问。
 
@@ -70,8 +71,11 @@ import type { EntityA } from "entities/A/@x/B";
 循环导入是指两个或多个文件在一个循环中相互导入。
 
 <figure>
-    <img src="../../../../../../static/img/circular-import-light.svg" data-theme-only="light" width="60%" alt="Three files importing each other in a circle" />
-    <img src="../../../../../../static/img/circular-import-dark.svg" data-theme-only="dark" width="60%" alt="Three files importing each other in a circle" />
+    <StaticImage
+        path={['/img/circular-import-light.svg', '/img/circular-import-dark.svg']}
+        style={{ width: "60%", marginLeft: "auto", marginRight: "auto" }}
+        alt="Three files importing each other in a circle"
+    />
     <figcaption>
         Pictured above: three files, `fileA.js`, `fileB.js`, and `fileC.js`, importing each other in a circle.
     </figcaption>
@@ -147,9 +151,9 @@ import { TextField } from '@/shared/ui/text-field';
 
 您可以做几件事来解决这个问题：
 1. 与[“Shared 中的大型包和损坏的 tree-shaking”问题](#large-bundles)相同的建议 — 在 `shared/ui` 和 `shared/lib` 中为每个组件/库单独有 index 文件，而不是一个大的
-2. 避免在有 slices 的 layers 上的 segments 中有 index 文件。  
+2. 避免在有 slices 的 layers 上的 segments 中有 index 文件。
    例如，如果您有一个用于 feature “comments” 的 index，`📄 features/comments/index.js`，则没有理由为该 feature 的 `ui` segment 有另一个 index，`📄 features/comments/ui/index.js`。
-3. 如果您有一个非常大的项目，很可能您的应用程序可以分割成几个大块。  
+3. 如果您有一个非常大的项目，很可能您的应用程序可以分割成几个大块。
    例如，Google Docs 在文档编辑器和文件浏览器方面有非常不同的责任。您可以创建一个 monorepo 设置，其中每个包都是一个单独的 FSD 根，具有自己的 layers 集。某些包可能只有 Shared 和 Entities layers，其他包可能只有 Pages 和 App，还有一些包可能包含它们自己的小 Shared，但仍然使用另一个包中的大 Shared。
 
 [import-rule-on-layers]: /docs/reference/layers#import-rule-on-layers

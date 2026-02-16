@@ -5,13 +5,18 @@ sidebar:
 ---
 
 import { Aside } from '@astrojs/starlight/components';
+import StaticImage from '../../../../../components/StaticImage.astro';
 
 层是 Feature-Sliced Design 中组织层次结构的第一级。它们的目的是根据代码需要的责任程度以及它依赖应用程序中其他模块的程度来分离代码。每一层都承载着特殊的语义意义，帮助您确定应该为您的代码分配多少责任。
 
 总共有 **7 个 layers**，按从最高责任和&nbsp;依赖到最低排列：
 
-<img src="../../../../../../static/img/layers/folders-graphic-light.svg" data-theme-only="light" width="180" style={{ float: "right", margin: "0 1em" }} alt="A file system tree, with a single root folder called src and then seven subfolders: app, processes, pages, widgets, features, entities, shared. The processes folder is slightly faded out." />
-<img src="../../../../../../static/img/layers/folders-graphic-dark.svg" data-theme-only="dark" width="180" style={{ float: "right", margin: "0 1em" }} alt="A file system tree, with a single root folder called src and then seven subfolders: app, processes, pages, widgets, features, entities, shared. The processes folder is slightly faded out." />
+<StaticImage
+    path={['/img/layers/folders-graphic-light.svg', '/img/layers/folders-graphic-dark.svg']}
+    width="180"
+    style={{ float: "right", margin: "0 1em" }}
+    alt="A file system tree, with a single root folder called src and then seven subfolders: app, processes, pages, widgets, features, entities, shared. The processes folder is slightly faded out."
+/>
 
 1. App
 2. Processes (deprecated)
@@ -50,9 +55,9 @@ App 和 Shared 层是此规则的**例外** — 它们既是层又是 slice。Sl
 Here are the segments that you can typically find in this layer:
 
 - `📁 api` — the API client and potentially also functions to make requests to specific backend endpoints.
-- `📁 ui` — the application's UI kit.  
+- `📁 ui` — the application's UI kit.
   Components on this layer should not contain business logic, but it's okay for them to be business-themed. For example, you can put the company logo and page layout here. Components with UI logic are also allowed (for example, autocomplete or a search bar).
-- `📁 lib` — a collection of internal libraries.  
+- `📁 lib` — a collection of internal libraries.
   This folder should not be treated as helpers or utilities ([read here why these folders often turn into a dump][ext-sova-utility-dump]). Instead, every library in this folder should have one area of focus, for example, dates, colors, text manipulation, etc. That area of focus should be documented in a README file. The developers in your team should know what can and cannot be added to these libraries.
 - `📁 config` — environment variables, global feature flags and other global configuration for your app.
 - `📁 routes` — route constants or patterns for matching routes.

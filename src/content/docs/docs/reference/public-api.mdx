@@ -5,6 +5,7 @@ sidebar:
 ---
 
 import { FileTree, Aside } from '@astrojs/starlight/components';
+import StaticImage from '../../../../components/StaticImage.astro';
 
 A public API is a _contract_ between a group of modules, like a slice, and the code that uses it. It also acts as a gate, only allowing access to certain objects, and only through that public API.
 
@@ -70,8 +71,11 @@ Index files like `index.js`, also known as barrel files, are the most common way
 Circular import is when two or more files import each other in a circle.
 
 <figure>
-    <img src="../../../../../static/img/circular-import-light.svg" data-theme-only="light" width="60%" alt="Three files importing each other in a circle" />
-    <img src="../../../../../static/img/circular-import-dark.svg" data-theme-only="dark"  width="60%" alt="Three files importing each other in a circle" />
+    <StaticImage
+        path={['/img/circular-import-light.svg', '/img/circular-import-dark.svg']}
+        style={{ width: "60%", marginLeft: "auto", marginRight: "auto" }}
+        alt="Three files importing each other in a circle"
+    />
     <figcaption>
         Pictured above: three files, `fileA.js`, `fileB.js`, and `fileC.js`, importing each other in a circle.
     </figcaption>
@@ -147,9 +151,9 @@ Having a large amount of index files in a project can slow down the development 
 
 There are several things you can do to tackle this issue:
 1. The same advice as in ["Large bundles and broken tree-shaking in Shared" issue](#large-bundles) — have separate index files for each component/library in `shared/ui` and `shared/lib` instead of one big one
-2. Avoid having index files in segments on layers that have slices.  
+2. Avoid having index files in segments on layers that have slices.
    For example, if you have an index for the feature "comments", `📄 features/comments/index.js`, there's no reason to have another index for the `ui` segment of that feature, `📄 features/comments/ui/index.js`.
-3. If you have a very big project, there's a good chance that your application can be split into several big chunks.  
+3. If you have a very big project, there's a good chance that your application can be split into several big chunks.
    For example, Google Docs has very different responsibilities for the document editor and for the file browser. You can create a monorepo setup where each package is a separate FSD root, with its own set of layers. Some packages can only have the Shared and Entities layers, others might only have Pages and App, others still might include their own small Shared, but still use the big one from another package too.
 
 [import-rule-on-layers]: /docs/reference/layers#import-rule-on-layers

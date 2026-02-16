@@ -5,6 +5,7 @@ sidebar:
 ---
 
 import { FileTree } from '@astrojs/starlight/components';
+import StaticImage from '../../../../../components/StaticImage.astro';
 
 公開APIは、モジュールのグループ（スライスなど）とそれを使用するコードとの間の**契約**です。また、特定のオブジェクトへのアクセスを制限し、その公開APIを通じてのみアクセスを許可します。
 
@@ -72,8 +73,11 @@ import type { EntityA } from "entities/A/@x/B";
 循環インポートとは、2つ以上のファイルが互いに循環的にインポートすることです。
 
 <figure>
-    <img src="../../../../../../static/img/circular-import-light.svg" data-theme-only="light" width="60%" alt="三つのファイルが循環的にインポートしている" />
-    <img src="../../../../../../static/img/circular-import-dark.svg" data-theme-only="dark" width="60%" alt="三つのファイルが循環的にインポートしている" />
+    <StaticImage
+        path={['/img/circular-import-light.svg', '/img/circular-import-dark.svg']}
+        style={{ width: "60%", marginLeft: "auto", marginRight: "auto" }}
+        alt="三つのファイルが循環的にインポートしている"
+    />
     <figcaption>
         上の図には、`fileA.js`、`fileB.js`、`fileC.js`の三つのファイルが循環的にインポートしている様子が示されています。
     </figcaption>
@@ -152,9 +156,9 @@ import { TextField } from '@/shared/ui/text-field';
 この問題に対処するためにできることはいくつかあります。
 
 1. [「Sharedにおける大きなバンドルサイズと壊れたツリーシェイキング」](#large-bundles)のセクションと同じアドバイス — `shared/ui`や`shared/lib`の各コンポーネントやライブラリのために別々のインデックスファイルを持つこと。
-2. スライスを持つレイヤーのセグメントにインデックスファイルを持たないようにすること。  
+2. スライスを持つレイヤーのセグメントにインデックスファイルを持たないようにすること。
    たとえば、「コメント」フィーチャーのインデックス（`📄 features/comments/index.js`）がある場合、そのフィーチャーの`ui`セグメントのために別のインデックスを持つ理由はありません（`📄 features/comments/ui/index.js`）。
-3. 非常に大きなプロジェクトがある場合、アプリケーションをいくつかの大きなチャンクに分割できる可能性が高いです。  
+3. 非常に大きなプロジェクトがある場合、アプリケーションをいくつかの大きなチャンクに分割できる可能性が高いです。
    たとえば、Google Docsは、ドキュメントエディターとファイルブラウザに非常に異なる責任を持っています。各パッケージが独自のレイヤーセットを持つ別々のFSDルートとしてモノレポを作成できます。いくつかのパッケージは、SharedとEntitiesレイヤーのみを持つことができ、他のパッケージはPagesとAppのみを持つことができ、他のパッケージは独自の小さなSharedを含むことができますが、他のパッケージからの大きなSharedも使用できます。
 
 [import-rule-on-layers]: /docs/reference/layers#import-rule-on-layers
