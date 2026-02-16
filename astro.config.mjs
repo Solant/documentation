@@ -61,18 +61,18 @@ export default defineConfig({
             ],
             sidebar: [
                 {
-                    label: "🚀 Get Started",
+                    label: "Get Started",
                     translations: {
-                        ru: "🚀 Начало работы",
-                        ja: "🚀  はじめに",
+                        ru: "Начало работы",
+                        ja: "はじめに",
                     },
                     autogenerate: { directory: "docs/get-started" },
                 },
                 {
-                    label: "🎯 Guides",
+                    label: "Guides",
                     translations: {
-                        ru: "🎯 Гайды",
-                        ja: "🎯  ガイド",
+                        ru: "Гайды",
+                        ja: "ガイド",
                     },
                     items: [
                         {
@@ -115,18 +115,18 @@ export default defineConfig({
                     ],
                 },
                 {
-                    label: "📚 Reference",
+                    label: "Reference",
                     translations: {
-                        ru: "📚 Справочник",
-                        ja: "📚  参考書",
+                        ru: "Справочник",
+                        ja: "参考書",
                     },
                     autogenerate: { directory: "docs/reference" },
                 },
                 {
-                    label: "🍰 About",
+                    label: "About",
                     translations: {
-                        ru: "🍰 О нас",
-                        ja: "🍰 メソッドについて",
+                        ru: "О нас",
+                        ja: "メソッドについて",
                     },
                     items: [
                         {
