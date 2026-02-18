@@ -9,6 +9,7 @@ export default defineConfig({
     outDir: "./build",
     site: "https://fsd.how",
     markdown: {
+        // @ts-ignore
         remarkPlugins: [remarkHeaderId],
     },
     integrations: [
@@ -17,30 +18,6 @@ export default defineConfig({
             favicon: "./static/img/favicon/adaptive.svg",
             defaultLocale: "root",
             customCss: ["./src/styles/custom.css"],
-            head: [
-                {
-                    tag: "link",
-                    attrs: {
-                        rel: "preconnect",
-                        href: "https://fonts.googleapis.com",
-                    },
-                },
-                {
-                    tag: "link",
-                    attrs: {
-                        rel: "preconnect",
-                        href: "https://fonts.gstatic.com",
-                        crossorigin: "anonymous",
-                    },
-                },
-                {
-                    tag: "link",
-                    attrs: {
-                        rel: "stylesheet",
-                        href: "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Noto+Sans:wght@300;400;500;700&display=swap",
-                    },
-                },
-            ],
             logo: {
                 src: "./static/img/brand/logo-primary.png",
                 replacesTitle: true,

@@ -1,31 +1,22 @@
 :root {
     /* Layout */
     --sl-content-width: 55rem; /* default: 45rem */
-
-    /* Default Font (English, Russian, etc.) */
-    --sl-font: "Roboto", system-ui, -apple-system, sans-serif;
-}
-
-/* CJK Languages (Korean, Japanese, Chinese) */
-:root:lang(ko),
-:root:lang(ja),
-:root:lang(zh) {
-    --sl-font: "Noto Sans", "Roboto", system-ui, -apple-system, sans-serif;
+    --sl-font: system-ui, sans-serif;
 }
 
 :root,
 :root[data-theme="dark"] {
-    --sl-color-accent-low: #001026;
+    --sl-color-accent-low: #102a4d;
     --sl-color-accent: #3193ff;
     --sl-color-accent-high: #b8dcff;
     --sl-color-white: #ffffff;
-    --sl-color-gray-1: #f8fafc;
-    --sl-color-gray-2: #e2e8f0;
+    --sl-color-gray-1: #f1f5f9;     
+    --sl-color-gray-2: #e2e8f0;    
     --sl-color-gray-3: #94a3b8;
-    --sl-color-gray-4: #475569;
-    --sl-color-gray-5: #1e293b;
-    --sl-color-gray-6: #0f172a;
-    --sl-color-black: #020617;
+    --sl-color-gray-4: #64748b;
+    --sl-color-gray-5: #1e293b;     
+    --sl-color-gray-6: #172033;    
+    --sl-color-black: #0f172a;     
 }
 
 :root[data-theme="light"] {
