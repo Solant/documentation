@@ -10,7 +10,7 @@ import { FileTree, Aside } from '@astrojs/starlight/components';
 
 Tutorial này sẽ xem xét một app thực tế, còn được biết đến với tên Conduit. Conduit là một bản clone cơ bản của [Medium](https://medium.com/) — nó cho phép bạn đọc và viết bài, cũng như bình luận trên các bài viết của người khác.
 
-![Conduit home page](/img/tutorial/realworld-feed-anonymous.jpg)
+![Conduit home page](../../../../../../static/img/tutorial/realworld-feed-anonymous.jpg)
 
 Đây là một ứng dụng khá nhỏ, vì vậy chúng ta sẽ giữ nó đơn giản và tránh phân tách quá mức. Rất có thể toàn bộ ứng dụng sẽ chỉ cần ba layer: **App**, **Pages**, và **Shared**. Nếu không, chúng ta sẽ giới thiệu thêm các layer khi cần. Sẵn sàng chưa?
 
@@ -38,7 +38,7 @@ Như vậy, folder Pages của chúng ta sẽ trông như thế này:
   - profile/
   - settings/
 </FileTree>
-```
+
 
 Sự khác biệt chính của Feature-Sliced Design so với cấu trúc code không được quy định là các pages không thể tham chiếu lẫn nhau. Nghĩa là, một page không thể import code từ trang khác. Điều này là do **quy tắc import trên các layer**:
 
@@ -147,7 +147,7 @@ Trong trường hợp của chúng ta, header rất đơn giản — đó là lo
 
 Hãy cũng kiểm tra một trang được thiết kế để chỉnh sửa, không phải đọc. Ví dụ, trình soạn thảo article:
 
-![Conduit post editor](/img/tutorial/realworld-editor-authenticated.jpg)
+![Conduit post editor](../../../../../../static/img/tutorial/realworld-editor-authenticated.jpg)
 
 Nó trông đơn giản, nhưng chứa một số khía cạnh của phát triển ứng dụng mà chúng ta chưa khám phá — validation form, trạng thái lỗi, và data persistence.
 
@@ -235,7 +235,7 @@ export default FeedPage;
 
 Sau đó, nếu bạn chạy dev server và mở ứng dụng, bạn sẽ thấy banner của Conduit!
 
-![The banner of Conduit](/img/tutorial/conduit-banner.jpg)
+![The banner of Conduit](../../../../../../static/img/tutorial/conduit-banner.jpg)
 
 ### API client
 
