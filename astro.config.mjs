@@ -8,6 +8,15 @@ import starlightLlmsTxt from "starlight-llms-txt";
 export default defineConfig({
     outDir: "./build",
     site: "https://fsd.how",
+    redirects: {
+        '/': '/docs/get-started/overview',
+        '/ru': '/ru/docs/get-started/overview',
+        '/uz': '/uz/docs/get-started/overview',
+        '/kr': '/kr/docs/get-started/overview',
+        '/ja': '/ja/docs/get-started/overview',
+        '/vi': '/vi/docs/get-started/overview',
+        '/zh': "/zh/docs/get-started/overview",
+    },
     markdown: {
         // @ts-ignore
         remarkPlugins: [remarkHeaderId],
