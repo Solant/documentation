@@ -10,13 +10,13 @@
     --sl-color-accent: #3193ff;
     --sl-color-accent-high: #b8dcff;
     --sl-color-white: #ffffff;
-    --sl-color-gray-1: #f1f5f9;     
-    --sl-color-gray-2: #e2e8f0;    
+    --sl-color-gray-1: #f1f5f9;
+    --sl-color-gray-2: #e2e8f0;
     --sl-color-gray-3: #94a3b8;
     --sl-color-gray-4: #64748b;
-    --sl-color-gray-5: #1e293b;     
-    --sl-color-gray-6: #172033;    
-    --sl-color-black: #0f172a;     
+    --sl-color-gray-5: #1e293b;
+    --sl-color-gray-6: #172033;
+    --sl-color-black: #0f172a;
 }
 
 :root[data-theme="light"] {
