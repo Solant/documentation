@@ -24,9 +24,66 @@ export default defineConfig({
     integrations: [
         starlight({
             title: "Feature-Sliced Design",
+            description: "Architectural methodology for frontend projects",
             favicon: "./static/img/favicon/adaptive.svg",
             defaultLocale: "root",
             customCss: ["./src/styles/custom.css"],
+            head: [
+                {
+                    tag: "meta",
+                    attrs: { property: "og:type", content: "website" },
+                },
+                {
+                    tag: "meta",
+                    attrs: {
+                        property: "og:title",
+                        content: "Feature-Sliced Design",
+                    },
+                },
+                {
+                    tag: "meta",
+                    attrs: {
+                        property: "og:description",
+                        content: "Architectural methodology for frontend projects",
+                    },
+                },
+                {
+                    tag: "meta",
+                    attrs: {
+                        property: "og:image",
+                        content: "https://fsd.how/img/preview.png",
+                    },
+                },
+                {
+                    tag: "meta",
+                    attrs: { property: "og:url", content: "https://fsd.how" },
+                },
+                {
+                    tag: "meta",
+                    attrs: { name: "twitter:card", content: "summary_large_image" },
+                },
+                {
+                    tag: "meta",
+                    attrs: {
+                        name: "twitter:title",
+                        content: "Feature-Sliced Design",
+                    },
+                },
+                {
+                    tag: "meta",
+                    attrs: {
+                        name: "twitter:description",
+                        content: "Architectural methodology for frontend projects",
+                    },
+                },
+                {
+                    tag: "meta",
+                    attrs: {
+                        name: "twitter:image",
+                        content: "https://fsd.how/img/preview.png",
+                    },
+                },
+            ],
             logo: {
                 src: "./static/img/brand/logo-primary.png",
                 replacesTitle: true,
