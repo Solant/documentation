@@ -44,7 +44,8 @@ export default defineConfig({
                     tag: "meta",
                     attrs: {
                         property: "og:description",
-                        content: "Architectural methodology for frontend projects",
+                        content:
+                            "Architectural methodology for frontend projects",
                     },
                 },
                 {
@@ -60,7 +61,10 @@ export default defineConfig({
                 },
                 {
                     tag: "meta",
-                    attrs: { name: "twitter:card", content: "summary_large_image" },
+                    attrs: {
+                        name: "twitter:card",
+                        content: "summary_large_image",
+                    },
                 },
                 {
                     tag: "meta",
@@ -73,7 +77,8 @@ export default defineConfig({
                     tag: "meta",
                     attrs: {
                         name: "twitter:description",
-                        content: "Architectural methodology for frontend projects",
+                        content:
+                            "Architectural methodology for frontend projects",
                     },
                 },
                 {
