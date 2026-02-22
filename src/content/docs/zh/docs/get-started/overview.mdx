@@ -8,7 +8,7 @@ import { FileTree, LinkCard, Aside } from '@astrojs/starlight/components';
 
 **Feature-Sliced Design**（FSD）是一种用于构建前端应用程序的架构方法论。简单来说，它是组织代码的规则和约定的汇编。该方法论的主要目的是在不断变化的业务需求面前，使项目更加易于理解和稳定。
 
-除了一系列约定外，FSD 还是一个工具链。我们有一个 [代码检查器][ext-steiger] 来检查您项目的架构，通过 CLI 或 IDE 的[文件夹生成器][ext-tools]，以及丰富的[示例][examples]库。
+除了一系列约定外，FSD 还是一个工具链。我们有一个 [代码检查器][ext-steiger] 来检查您项目的架构，通过 CLI 或 IDE 的[文件夹生成器][ext-tools]，以及丰富的示例库。
 
 ## 它适合我吗？ \{#is-it-right-for-me}
 
@@ -110,18 +110,18 @@ Slices 以及 layers App 和 Shared 由 segments 组成，segments 按代码的�
 
 ## 优势 \{#advantages}
 
-- **统一性**  
+- **统一性**
   由于结构是标准化的，项目变得更加统一，这使得团队新成员的入职更加容易。
 
-- **面对变化和重构的稳定性**  
-  一个 layer 上的模块不能使用同一 layer 上的其他模块，或者上层的 layers。  
+- **面对变化和重构的稳定性**
+  一个 layer 上的模块不能使用同一 layer 上的其他模块，或者上层的 layers。
   这允许您进行独立的修改，而不会对应用程序的其余部分产生不可预见的后果。
 
-- **可控的逻辑重用**  
-  根据 layer，您可以使代码非常可重用或非常本地化。  
+- **可控的逻辑重用**
+  根据 layer，您可以使代码非常可重用或非常本地化。
   这在遵循 **DRY** 原则和实用性之间保持平衡。
 
-- **面向业务和用户需求**  
+- **面向业务和用户需求**
   应用程序被分割为业务领域，并鼓励在命名中使用业务语言，这样您可以在不完全理解项目的所有其他不相关部分的情况下做有用的产品工作。
 
 ## 渐进式采用 \{#incremental-adoption}
@@ -139,12 +139,10 @@ Slices 以及 layers App 和 Shared 由 segments 组成，segments 按代码的�
 ## 下一步 \{#next-steps}
 
 - **想要好好掌握如何用 FSD 思维？** 查看[Tutorial][tutorial]。
-- **喜欢从示例中学习？** 我们在 [Examples][examples] 部分有很多内容。
 - **有问题？** 访问我们的 [Telegram 聊天][ext-telegram] 并从社区获得帮助。
 
-[tutorial]: /docs/get-started/tutorial
-[examples]: /examples
-[migration]: /docs/guides/migration/from-custom
+[tutorial]: /zh/docs/get-started/tutorial
+[migration]: /zh/docs/guides/migration/from-custom
 [ext-steiger]: https://github.com/feature-sliced/steiger
 [ext-tools]: https://github.com/feature-sliced/awesome?tab=readme-ov-file#tools
 [ext-telegram]: https://t.me/feature_sliced

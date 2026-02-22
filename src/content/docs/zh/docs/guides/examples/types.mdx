@@ -48,7 +48,7 @@ type ArrayValues<T extends readonly unknown[]> = T[number];
 
 </Aside>
 
-## 业务实体及其交叉引用
+## 业务实体及其交叉引用 \{#business-entities-and-their-cross-references}
 
 应用程序中最重要的类型之一是业务实体的类型，即您的应用程序处理的现实世界的事物。例如，在音乐流媒体应用程序中，您可能有业务实体 _Song_、_Album_ 等。
 
@@ -76,7 +76,7 @@ export function listSongs() {
 
 有两种方法来处理这个问题：
 
-1. **参数化您的类型**  
+1. **参数化您的类型**
    您可以让您的类型接受类型参数作为与其他实体连接的插槽，甚至可以对这些插槽施加约束。例如：
 
    ```ts title="entities/song/model/song.ts"
@@ -89,7 +89,7 @@ export function listSongs() {
 
    这对某些类型比其他类型效果更好。像 `Cart = { items: Array<Product> }` 这样的简单类型可以很容易地与任何类型的产品一起工作。更连接的类型，如 `Country` 和 `City`，可能不那么容易分离。
 
-2. **交叉导入（但要正确地做）**  
+2. **交叉导入（但要正确地做）**
    要在 FSD 中的实体之间进行交叉导入，您可以为每个将要交叉导入的 slice 使用特殊的公共 API。例如，如果我们有实体 `song`、`artist` 和 `playlist`，后两者需要引用 `song`，我们可以在 `song` 实体中使用 `@x` 符号为它们创建两个特殊的公共 API：
 
    <FileTree>
@@ -100,7 +100,7 @@ export function listSongs() {
          - playlist.ts 供 `playlist` 实体导入的公共 API
        - index.ts 常规公共 API
    </FileTree>
-   
+
    文件 `📄 entities/song/@x/artist.ts` 的内容类似于 `📄 entities/song/index.ts`：
 
    ```ts title="entities/song/@x/artist.ts"
@@ -382,7 +382,7 @@ segment 的选择也应该由使用位置决定。例如，如果您的枚举包
 
 一些枚举在整个项目中确实是通用的，如一般的后端响应状态或设计系统令牌。在这种情况下，您可以将它们放在 Shared 中，并根据枚举所代表的内容选择 segment（响应状态用 `api`，设计令牌用 `ui` 等）。
 
-## 类型验证 schemas 和 Zod
+## 类型验证 schemas 和 Zod \{#type-validation-schemas-and-zod}
 
 如果您想验证您的数据符合某种形状或约束，您可以定义一个验证 schema。在 TypeScript 中，这项工作的流行库是 [Zod][ext-zod]。验证 schemas 也应该尽可能与使用它们的代码放在一起。
 
@@ -439,7 +439,7 @@ declare module "use-react-screenshot";
 
 从外部源生成类型是很常见的，例如，从 OpenAPI schema 生成后端类型。在这种情况下，为这些类型在您的代码库中创建一个专门的位置，如 `shared/api/openapi`。理想情况下，您还应该在该文件夹中包含一个 README，描述这些文件是什么、如何重新生成它们等。
 
-[import-rule-on-layers]: /docs/reference/layers#import-rule-on-layers
+[import-rule-on-layers]: /zh/docs/reference/layers#import-rule-on-layers
 [ext-type-fest]: https://github.com/sindresorhus/type-fest
 [ext-zod]: https://zod.dev
 [ext-vite]: https://vitejs.dev

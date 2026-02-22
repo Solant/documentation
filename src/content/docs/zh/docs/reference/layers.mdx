@@ -30,7 +30,7 @@ import StaticImage from '../../../../../components/StaticImage.astro';
 
 在实践中，层是具有小写名称的文件夹（例如，`📁 shared`、`📁 pages`、`📁 app`）。_不建议_添加新层，因为它们的语义是标准化的。
 
-## 层上的导入规则
+## 层上的导入规则 \{#import-rule-on-layers}
 
 层由 _slices_ 组成 — 高度内聚的模块组。slices 之间的依赖关系由**层上的导入规则**调节：
 
@@ -42,7 +42,7 @@ App 和 Shared 层是此规则的**例外** — 它们既是层又是 slice。Sl
 
 在实践中，这意味着 App 和 Shared 层由 segments 组成，segments 可以自由地相互导入。
 
-## 层定义
+## 层定义 \{#layer-definitions}
 
 本节描述每一层的语义含义，以便直观地了解什么样的代码属于那里。
 
@@ -65,7 +65,7 @@ Here are the segments that you can typically find in this layer:
 
 你可以自由添加更多段，但要确保这些段的名称描述内容的目的，而不是其本质。例如，`components`、`hooks`和`types`是不好的段名称，因为它们在你寻找代码时没有太大帮助。
 
-### Entities
+### Entities \{#entities}
 
 这一层的切片代表项目正在处理的现实世界概念。通常，它们是业务用来描述产品的术语。例如，社交网络可能会处理用户（User）、帖子（Post）和群组（Group）等业务实体。
 
@@ -153,6 +153,6 @@ export type { Song } from "../model/song.ts";
 - `📁 styles` — 全局样式
 - `📁 entrypoint` — 应用程序代码的入口点，特定于框架
 
-[public-api-for-cross-imports]: /docs/reference/public-api#public-api-for-cross-imports
+[public-api-for-cross-imports]: /zh/docs/reference/public-api#public-api-for-cross-imports
 [ext-remix]: https://remix.run
 [ext-sova-utility-dump]: https://dev.to/sergeysova/why-utils-helpers-is-a-dump-45fo

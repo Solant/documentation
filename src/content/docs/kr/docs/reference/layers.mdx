@@ -36,7 +36,7 @@ Layer는 Feature-Sliced Design에서 코드를 나눌 때 사용하는 **가장 
 또한, **새로운 Layer를 직접 정의해서 사용하는 것은 권장하지 않습니다.**
 (각 Layer의 역할이 이미 표준으로 충분히 정리되어 있기 때문입니다.)
 
-## Import 규칙
+## Import 규칙 \{#import-rule-on-layers}
 
 각 Layer는 여러 개의 **Slice(서로 밀접하게 연관된 모듈 묶음)** 로 구성됩니다.
 Slice들 사이의 연결은 **Layer Import 규칙**을 통해 제한합니다.
@@ -57,7 +57,7 @@ Slice들 사이의 연결은 **Layer Import 규칙**을 통해 제한합니다.
 이 경우에는 Layer 내부에서 Segment끼리는 자유롭게 import할 수 있습니다.
 (`shared`는 비즈니스 도메인이 없고, `app`은 모든 도메인을 묶는 상위 조정자 역할을 합니다.)
 
-## Layer별 역할
+## Layer별 역할 \{#layer-definitions}
 
 이제 각 Layer가 어떤 의미를 가지는지,
 그리고 보통 어떤 종류의 코드가 해당 Layer에 들어오는지 정리해 보겠습니다.
@@ -104,7 +104,7 @@ Entities Layer는 프로젝트에서 다루는 **핵심 비즈니스 개념**을
     - 여러 페이지에서 재사용 가능한 형태로 설계합니다.
     - 비즈니스 로직은 가능하면 props/slot으로 외부에서 주입하는 방식을 권장합니다.
 
-#### Entity 간 관계
+#### Entity 간 관계 \{#entities}
 
 원칙적으로는 Entity Slice끼리는 서로 **서로를 모르는 상태**가 이상적입니다.
 하지만 실제 애플리케이션에서는 한 Entity가 다른 Entity를 **포함하거나**
@@ -203,6 +203,6 @@ App Layer는 앱 전역에서 동작하는 **환경 설정**과 **공용 로직*
 - `📁 styles` — Global Style
 - `📁 entrypoint` — Application Entry Point와 Framework 설정
 
-[public-api-for-cross-imports]: /docs/reference/public-api#public-api-for-cross-imports
+[public-api-for-cross-imports]: /kr/docs/reference/public-api#public-api-for-cross-imports
 [ext-remix]: https://remix.run
 [ext-sova-utility-dump]: https://dev.to/sergeysova/why-utils-helpers-is-a-dump-45fo

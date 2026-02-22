@@ -33,7 +33,7 @@ type ArrayValues<T extends readonly unknown[]> = T[number];
 Để làm cho utility types có sẵn trong toàn bộ dự án của bạn, hoặc là install một library như [`type-fest`][ext-type-fest], hoặc tạo library riêng của bạn trong `shared/lib`. Đảm bảo chỉ rõ ràng những types mới nào _nên_ được thêm vào library này, và những types nào _không thuộc về_ đó. Ví dụ, gọi nó là `shared/lib/utility-types` và thêm README bên trong mô tả utility type là gì trong team của bạn.
 
 Đừng đánh giá quá cao khả năng tái sử dụng của utility type. Chỉ vì nó có thể được tái sử dụng, không có nghĩa là nó sẽ được tái sử dụng, và vì vậy, không phải mọi utility type đều cần ở trong Shared. Một số utility types thì ổn ngay bên cạnh nơi chúng được cần:
-      
+
 <FileTree>
 - pages/
   - home/
@@ -48,11 +48,11 @@ Hãy cưỡng lại cám dỗ tạo folder `shared/types`, hoặc thêm segment 
 
 </Aside>
 
-## Business entities và cross-references của chúng
+## Business entities và cross-references của chúng \{#business-entities-and-their-cross-references}
 
 Trong số những types quan trọng nhất trong app là types của business entities, tức là những thứ trong thế giới thực mà app của bạn làm việc với. Ví dụ, trong music streaming app, bạn có thể có business entities _Song_, _Album_, v.v.
 
-Business entities thường đến từ backend, vì vậy bước đầu tiên là type backend responses. Thật tiện lợi khi có function để thực hiện request đến mỗi endpoint, và type response của function này. Để có thêm type safety, bạn có thể muốn chạy response qua schema validation library như [Zod][ext-zod]. 
+Business entities thường đến từ backend, vì vậy bước đầu tiên là type backend responses. Thật tiện lợi khi có function để thực hiện request đến mỗi endpoint, và type response của function này. Để có thêm type safety, bạn có thể muốn chạy response qua schema validation library như [Zod][ext-zod].
 
 Ví dụ, nếu bạn giữ tất cả requests của mình trong Shared, bạn có thể làm như thế này:
 
@@ -76,7 +76,7 @@ Bạn có thể nhận thấy rằng type `Song` tham chiếu đến một entit
 
 Có hai cách để giải quyết vấn đề này:
 
-1. **Tham số hóa các types của bạn**  
+1. **Tham số hóa các types của bạn**
    Bạn có thể làm cho types của mình chấp nhận type arguments làm slots cho các kết nối với entities khác, và thậm chí áp dụng constraints trên những slots đó. Ví dụ:
 
    ```ts title="entities/song/model/song.ts"
@@ -89,7 +89,7 @@ Có hai cách để giải quyết vấn đề này:
 
    Điều này hoạt động tốt hơn cho một số types so với những types khác. Một type đơn giản như `Cart = { items: Array<Product> }` có thể dễ dàng được làm để hoạt động với bất kỳ loại product nào. Các types kết nối nhiều hơn, như `Country` và `City`, có thể không dễ tách rời.
 
-2. **Cross-import (nhưng làm đúng cách)**  
+2. **Cross-import (nhưng làm đúng cách)**
    Để thực hiện cross-imports giữa các entities trong FSD, bạn có thể sử dụng public API đặc biệt dành riêng cho mỗi slice sẽ cross-importing. Ví dụ, nếu chúng ta có entities `song`, `artist`, và `playlist`, và hai cái sau cần tham chiếu `song`, chúng ta có thể tạo hai public APIs đặc biệt cho cả hai trong entity `song` với ký hiệu `@x`:
 
    <FileTree>
@@ -100,7 +100,7 @@ Có hai cách để giải quyết vấn đề này:
          - playlist.ts public API cho entity `playlist` để import
        - index.ts public API thông thường
    </FileTree>
-   
+
    Nội dung của file `📄 entities/song/@x/artist.ts` tương tự như `📄 entities/song/index.ts`:
 
    ```ts title="entities/song/@x/artist.ts"
@@ -382,7 +382,7 @@ Việc chọn segment cũng nên được quyết định bởi vị trí sử d
 
 Một số enums thực sự chung cho toàn bộ dự án, như general backend response statuses hoặc design system tokens. Trong trường hợp này, bạn có thể đặt chúng trong Shared, và chọn segment dựa trên enum đại diện cho gì (`api` cho response statuses, `ui` cho design tokens, v.v.).
 
-## Type validation schemas và Zod
+## Type validation schemas và Zod \{#type-validation-schemas-and-zod}
 
 Nếu bạn muốn validate rằng dữ liệu của bạn phù hợp với hình dạng hoặc ràng buộc nhất định, bạn có thể định nghĩa validation schema. Trong TypeScript, library phổ biến cho công việc này là [Zod][ext-zod]. Validation schemas cũng nên được colocated với code sử dụng chúng, càng nhiều càng tốt.
 
@@ -439,7 +439,7 @@ declare module "use-react-screenshot";
 
 Thường xuyên sinh types từ nguồn bên ngoài, ví dụ, sinh backend types từ OpenAPI schema. Trong trường hợp này, tạo nơi chuyên dụng trong codebase của bạn cho những types này, như `shared/api/openapi`. Lý tưởng nhất, bạn cũng nên bao gồm README trong folder đó mô tả những files này là gì, cách tái tạo chúng, v.v.
 
-[import-rule-on-layers]: /docs/reference/layers#import-rule-on-layers
+[import-rule-on-layers]: /vi/docs/reference/layers#import-rule-on-layers
 [ext-type-fest]: https://github.com/sindresorhus/type-fest
 [ext-zod]: https://zod.dev
 [ext-vite]: https://vitejs.dev

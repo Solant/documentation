@@ -3,6 +3,7 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import remarkHeaderId from "remark-heading-id";
 import starlightLlmsTxt from "starlight-llms-txt";
+import starlightLinksValidator from "starlight-links-validator";
 
 // https://astro.build/config
 export default defineConfig({
@@ -93,7 +94,13 @@ export default defineConfig({
                 src: "./static/img/brand/logo-primary.png",
                 replacesTitle: true,
             },
-            plugins: [starlightLlmsTxt()],
+            plugins: [
+                starlightLlmsTxt(),
+                starlightLinksValidator({
+                    errorOnFallbackPages: false,
+                    errorOnInconsistentLocale: true,
+                }),
+            ],
             locales: {
                 root: {
                     label: "English",

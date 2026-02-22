@@ -81,26 +81,26 @@ export function useThemeSwitcher() {
 
 解決策を議論する前に、これが実際に問題かどうかを確認する必要があります。このレイアウトは本当に必要なのか？もしそうなら、ウィジェットとして実装することが最適なのかも再考する必要があるでしょう。もしビジネスロジックのブロックが2〜3ページで使用され、レイアウトがそのウィジェットの小さなラッパーに過ぎない場合、次の2つのオプションを検討してください。
 
-1. **レイアウトをApp層のルーターで直接作成する**  
+1. **レイアウトをApp層のルーターで直接作成する**
    これは、ネストをサポートするルーターに最適です。特定のルートをグループ化し、必要なレイアウトをそれらにのみ適用できます。
 
-2. **単にコピーする**  
+2. **単にコピーする**
    コードを抽象化する欲求はしばしば過大評価されます。特にレイアウトに関しては、変更がほとんどないためです。ある時点で、これらのページの1つが変更を必要とする場合、他のページに影響を与えずに変更を加えることができます。他のページを更新することを忘れるかもしれないと心配している場合は、ページ間の関係を説明するコメントを残すことができます。
 
 上記のいずれのオプションも適用できない場合、ウィジェットをレイアウトに組み込むための2つの解決策があります。
 
-1. **レンダープロップまたはスロットを使用する**  
+1. **レンダープロップまたはスロットを使用する**
    ほとんどのフレームワークは、UIの一部を外部から渡すことを許可しています。Reactではこれを[レンダープロップ][ext-render-props]と呼び、Vueでは[スロット][ext-vue-slots]と呼びます。
 
-2. **レイアウトをApp層に移動する**  
+2. **レイアウトをApp層に移動する**
    レイアウトをApp層に保存し、必要なウィジェットを組み合わせることもできます。
 
 ## 追加資料
 
 - ReactとRemixを使用した認証付きレイアウトの作成例は[チュートリアル][tutorial]で見つけることができます（React Routerに類似する）。
 
-[tutorial]: /docs/get-started/tutorial
-[import-rule-on-layers]: /docs/reference/layers#import-rule-on-layers
+[tutorial]: /ja/docs/get-started/tutorial
+[import-rule-on-layers]: /ja/docs/reference/layers#import-rule-on-layers
 [ext-react-router]: https://reactrouter.com/
 [ext-render-props]: https://www.patterns.dev/react/render-props-pattern/
 [ext-vue-slots]: https://jp.vuejs.org/guide/components/slots

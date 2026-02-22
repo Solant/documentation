@@ -63,7 +63,7 @@ export const registrationData = z.object({
     path: ["confirmPassword"],
 });
 ```
-    
+
 然后，在 `ui` segment 中，您可以使用此 schema 来验证用户输入：
 
 ```tsx title="pages/login/ui/RegisterPage.tsx"
@@ -146,11 +146,11 @@ FSD 项目通常有一个用户实体和/或当前用户实体。甚至可以是
 
 有几种解决这个挑战的方案：
 
-1. **每次发出请求时手动传递token**  
+1. **每次发出请求时手动传递token**
     这是最简单的解决方案，但很快就会变得繁琐，如果你没有类型安全，很容易忘记。它也与Shared中API客户端的中间件模式不兼容。
-1. **通过上下文或像`localStorage`这样的全局存储将token暴露给整个应用程序**  
+1. **通过上下文或像`localStorage`这样的全局存储将token暴露给整个应用程序**
     检索token的键将保存在`shared/api`中，以便API客户端可以访问它。token的响应式存储将从用户实体导出，上下文提供者（如果需要）将在App层设置。这为设计API客户端提供了更多自由，但是，这会对更高层级提供上下文创建隐式依赖。遵循这种方法时，如果上下文或`localStorage`没有正确设置，请考虑提供有用的错误消息。
-1. **每次token更改时将其注入API客户端**  
+1. **每次token更改时将其注入API客户端**
     如果你的存储是响应式的，你可以创建一个订阅，每次实体中的存储更改时都会更新API客户端的token存储。这与前一个解决方案类似，因为它们都对更高层级创建隐式依赖，但这个更具命令性（"推送"），而前一个更具声明性（"拉取"）。
 
 一旦你克服了暴露存储在实体模型中的token的挑战，你就可以编码更多与token管理相关的业务逻辑。例如，`model`段可以包含在一定时间后使token失效的逻辑，或在token过期时刷新token的逻辑。要实际向后端发出请求，请使用用户实体的`api`段或`shared/api`。
@@ -171,8 +171,8 @@ token 存储的更新必须从登出按钮的位置触发，比如头部 widget�
 
 不要忘记为登出请求失败或刷新登录 token 请求失败时构建故障保护。在这两种情况下，您都应该清除 token 存储。如果您将 token 保存在 Entities 中，此代码可以放在 `model` segment 中，因为它是纯业务逻辑。如果您将 token 保存在 Shared 中，将此逻辑放在 `shared/api` 中可能会使 segment 膨胀并稀释其目的。如果您注意到您的 API segment 包含几个不相关的东西，请考虑将 token 管理逻辑拆分到另一个 segment 中，例如 `shared/auth`。
 
-[tutorial-authentication]: /docs/get-started/tutorial#authentication
-[import-rule-on-layers]: /docs/reference/layers#import-rule-on-layers
-[examples-api-requests]: /docs/guides/examples/api-requests
+[tutorial-authentication]: /zh/docs/get-started/tutorial#authentication
+[import-rule-on-layers]: /zh/docs/reference/layers#import-rule-on-layers
+[examples-api-requests]: /zh/docs/guides/examples/api-requests
 [ext-remix]: https://remix.run
 [ext-zod]: https://zod.dev

@@ -235,7 +235,7 @@ APIクライアントは通常、`shared/api`に配置されるか、エンテ�
 
 ログアウトリクエストやトークン更新リクエストの失敗を考慮することを忘れないでください。いずれの場合も、トークンストレージをリセットする必要があります。トークンをEntities層に保存している場合、このコードは`model`セグメントに配置できます。トークンをShared層に保存している場合、このロジックを`shared/api`に配置すると、セグメントが膨らみ、その目的が曖昧になってしまいます。`api`セグメントに無関係な2つのものが含まれていることに気づいた場合、トークン管理ロジックを別のセグメント、例えば`shared/auth`に分離することを検討してみてください。
 
-[tutorial-authentication]: /docs/get-started/tutorial#authentication
-[import-rule-on-layers]: /docs/reference/layers#import-rule-on-layers
+[tutorial-authentication]: /ja/docs/get-started/tutorial#authentication
+[import-rule-on-layers]: /ja/docs/reference/layers#import-rule-on-layers
 [ext-remix]: https://remix.run
 [ext-zod]: https://zod.dev

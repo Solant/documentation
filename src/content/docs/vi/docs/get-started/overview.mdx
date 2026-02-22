@@ -8,7 +8,7 @@ import { FileTree, Aside } from '@astrojs/starlight/components';
 
 **Feature-Sliced Design** (FSD) là một phương pháp thiết kế kiến trúc để xây dựng các ứng dụng frontend. Nói đơn giản, đây là tập hợp các quy tắc và quy ước để tổ chức code. Mục đích chính của phương pháp này là làm cho dự án trở nên dễ hiểu và ổn định hơn khi đối mặt với những yêu cầu kinh doanh liên tục thay đổi.
 
-Ngoài tập hợp các quy ước, FSD còn là một bộ công cụ. Chúng tôi có [linter][ext-steiger] để kiểm tra kiến trúc dự án của bạn, [trình tạo thư mục][ext-tools] thông qua CLI hoặc IDE, cũng như thư viện phong phú các [ví dụ][examples].
+Ngoài tập hợp các quy ước, FSD còn là một bộ công cụ. Chúng tôi có [linter][ext-steiger] để kiểm tra kiến trúc dự án của bạn, [trình tạo thư mục][ext-tools] thông qua CLI hoặc IDE, cũng như thư viện phong phú các ví dụ.
 
 ## Có phù hợp với tôi không? \{#is-it-right-for-me}
 
@@ -109,18 +109,18 @@ Thường thì những segment này đủ cho hầu hết các layer, bạn ch�
 
 ## Ưu điểm \{#advantages}
 
-- **Tính thống nhất**  
+- **Tính thống nhất**
   Vì cấu trúc được tiêu chuẩn hóa, các dự án trở nên thống nhất hơn, điều này làm cho việc onboard thành viên mới dễ dàng hơn cho nhóm.
 
-- **Ổn định trước các thay đổi và refactoring**  
-  Một module trên một layer không thể sử dụng các module khác trên cùng layer, hoặc các layer ở trên.  
+- **Ổn định trước các thay đổi và refactoring**
+  Một module trên một layer không thể sử dụng các module khác trên cùng layer, hoặc các layer ở trên.
   Điều này cho phép bạn thực hiện các sửa đổi độc lập mà không có hậu quả không lường trước đối với phần còn lại của ứng dụng.
 
-- **Kiểm soát việc tái sử dụng logic**  
-  Tùy thuộc vào layer, bạn có thể làm cho code rất có thể tái sử dụng hoặc rất cục bộ.  
+- **Kiểm soát việc tái sử dụng logic**
+  Tùy thuộc vào layer, bạn có thể làm cho code rất có thể tái sử dụng hoặc rất cục bộ.
   Điều này giữ sự cân bằng giữa việc tuân theo nguyên tắc **DRY** và tính thực tế.
 
-- **Định hướng vào nhu cầu kinh doanh và người dùng**  
+- **Định hướng vào nhu cầu kinh doanh và người dùng**
   Ứng dụng được chia theo các domain kinh doanh và việc sử dụng ngôn ngữ kinh doanh được khuyến khích trong việc đặt tên, để bạn có thể thực hiện công việc sản phẩm hữu ích mà không cần hiểu đầy đủ tất cả các phần không liên quan khác của dự án.
 
 ## Áp dụng từng bước \{#incremental-adoption}
@@ -138,12 +138,10 @@ Nên tránh thêm các entity lớn mới trong khi refactor hoặc chỉ refact
 ## Bước tiếp theo \{#next-steps}
 
 - **Muốn nắm bắt tốt cách tư duy trong FSD?** Xem [Tutorial][tutorial].
-- **Bạn thích học từ ví dụ?** Chúng tôi có rất nhiều trong phần [Examples][examples].
 - **Bạn có câu hỏi?** Ghé thăm [Telegram chat][ext-telegram] của chúng tôi và nhận trợ giúp từ cộng đồng.
 
-[tutorial]: /docs/get-started/tutorial
-[examples]: /examples
-[migration]: /docs/guides/migration/from-custom
+[tutorial]: /vi/docs/get-started/tutorial
+[migration]: /vi/docs/guides/migration/from-custom
 [ext-steiger]: https://github.com/feature-sliced/steiger
 [ext-tools]: https://github.com/feature-sliced/awesome?tab=readme-ov-file#tools
 [ext-telegram]: https://t.me/feature_sliced

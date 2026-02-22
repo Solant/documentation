@@ -30,7 +30,7 @@ Bạn không cần phải sử dụng mọi layer trong dự án của mình —
 
 Trong thực tế, layer là các folder với tên viết thường (ví dụ: `📁 shared`, `📁 pages`, `📁 app`). Việc thêm layer mới _không được khuyến nghị_ vì ngữ nghĩa của chúng đã được chuẩn hóa.
 
-## Import rule trên layer
+## Import rule trên layer \{#import-rule-on-layers}
 
 Layer được tạo thành từ các _slice_ — các nhóm module có tính gắn kết cao. Dependency giữa các slice được điều chỉnh bởi **import rule trên layer**:
 
@@ -42,7 +42,7 @@ Layer App và Shared là **ngoại lệ** của quy tắc này — chúng vừa 
 
 Trong thực tế, điều này có nghĩa là layer App và Shared được tạo thành từ các segment, và các segment có thể import lẫn nhau một cách tự do.
 
-## Định nghĩa layer
+## Định nghĩa layer \{#layer-definitions}
 
 Phần này mô tả ý nghĩa ngữ nghĩa của từng layer để tạo ra trực giác về loại code nào thuộc về đó.
 
@@ -65,7 +65,7 @@ Dưới đây là các segment mà bạn thường có thể tìm thấy trong l
 
 Bạn được tự do thêm nhiều segment hơn, nhưng hãy đảm bảo rằng tên của những segment này mô tả mục đích của nội dung, không phải bản chất của nó. Ví dụ, `components`, `hooks`, và `types` là những tên segment tệ vì chúng không hữu ích khi bạn đang tìm kiếm code.
 
-### Entities
+### Entities \{#entities}
 
 Các slice trên layer này đại diện cho các khái niệm từ thế giới thực mà dự án đang làm việc. Thông thường, chúng là các thuật ngữ mà business sử dụng để mô tả sản phẩm. Ví dụ, một mạng xã hội có thể làm việc với các business entity như User, Post và Group.
 
@@ -153,6 +153,6 @@ Dưới đây là các segment mà bạn thường có thể tìm thấy trong l
 - `📁 styles` — global style
 - `📁 entrypoint` — entrypoint đến application code, framework-specific
 
-[public-api-for-cross-imports]: /docs/reference/public-api#public-api-for-cross-imports
+[public-api-for-cross-imports]: /vi/docs/reference/public-api#public-api-for-cross-imports
 [ext-remix]: https://remix.run
 [ext-sova-utility-dump]: https://dev.to/sergeysova/why-utils-helpers-is-a-dump-45fo

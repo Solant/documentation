@@ -179,7 +179,7 @@ UXを向上させるために、ブラウザを閉じたときに偶発的なデ
 
 [https://github.com/feature-sliced/tutorial-conduit/tree/clean](https://github.com/feature-sliced/tutorial-conduit/tree/clean)
 
-依存関係を`npm install`でインストールし、`npm run dev`でサーバーを起動します。[http://localhost:3000](http://localhost:3000/)を開くと、空のアプリケーションが表示されます。
+依存関係を`npm install`でインストールし、`npm run dev`でサーバーを起動します。`http://localhost:3000`を開くと、空のアプリケーションが表示されます。
 
 ### ページごとに整理する
 
@@ -699,7 +699,7 @@ export function FeedPage() {
 
 よし、これも実現しました。タグ一覧も同様に実装できますが、認証を実装するまで待ちましょう。ところで、認証についてですが！
 
-### 認証
+### 認証 \{#authentication}
 
 認証には、ログイン用のページと登録用のページの2つがあります。これらは主に非常に似ているため、必要に応じてコードを再利用できるように、1つの`sign-in`セグメントに保持するのが理にかなっています。
 
@@ -912,7 +912,7 @@ export { register as action };
 export default RegisterPage;
 ```
 
-これで、[http://localhost:3000/register](http://localhost:3000/register)にアクセスすると、ユーザーを作成できます！アプリケーションの残りの部分は、まだ反応しませんが、近々対処します。
+これで、`http://localhost:3000/register`にアクセスすると、ユーザーを作成できます！アプリケーションの残りの部分は、まだ反応しませんが、近々対処します。
 
 同様に、ログインページを実装することもできます。自分で実装してみるか、下記のコードをコピペするか、次に進みましょう。
 
@@ -1215,7 +1215,7 @@ export default function App() {
 
 <figure>
   ![ヘッダー、フィード、タグがあるConduitのフィードページ。タブはまだありません。](../../../../../../static/img/tutorial/realworld-feed-without-tabs.jpg)
-  
+
   <figcaption>ヘッダー、フィード、タグがあるConduitのフィードページ。タブはまだない。</figcaption>
 </figure>
 
@@ -2259,7 +2259,7 @@ export default ArticleEditPage;
 
 <figure>
   ![記事編集者の画像](../../../../../../static/img/tutorial/realworld-article-editor.jpg)
-  
+
   <figcaption>記事編集画像</figcaption>
 </figure>
 
