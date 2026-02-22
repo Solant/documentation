@@ -6,6 +6,8 @@ sidebar:
 
 import { FileTree, Aside } from '@astrojs/starlight/components';
 
+import StaticImage from '../../../../../components/StaticImage.astro';
+
 ## Слайсы
 
 Слайсы — это второй уровень в организационной иерархии Feature-Sliced Design. Их основное назначение — группировать код по его значению для продукта, бизнеса или просто приложения.
@@ -19,8 +21,7 @@ import { FileTree, Aside } from '@astrojs/starlight/components';
 Слайсы задуманы как независимые и сильно связанные группы файлов кода. Картинка ниже может помочь визуализировать такие сложные концепции как _связность_ (cohesion) и _сцепленность_ (coupling):
 
 <figure>
-    <img src="../../../../../../static/img/coupling-cohesion-light.svg" data-theme-only="light" alt="" />
-    <img src="../../../../../../static/img/coupling-cohesion-dark.svg" data-theme-only="dark" alt="" />
+    <StaticImage path={['/img/coupling-cohesion-light.svg', '/img/coupling-cohesion-dark.svg']} alt="Coupling and cohesion" />
     <figcaption>
         Картинка вдохновлена https://enterprisecraftsmanship.com/posts/cohesion-coupling-difference/
     </figcaption>
