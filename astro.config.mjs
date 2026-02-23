@@ -26,7 +26,6 @@ export default defineConfig({
         starlight({
             title: "Feature-Sliced Design",
             description: "Architectural methodology for frontend projects",
-            favicon: "./static/img/favicon/adaptive.svg",
             defaultLocale: "root",
             customCss: ["./src/styles/custom.css"],
             head: [
