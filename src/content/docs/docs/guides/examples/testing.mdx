@@ -1,0 +1,367 @@
+---
+title: Testing
+sidebar:
+  order: 6
+---
+
+import { FileTree, Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+
+This guide covers unit and integration testing in Feature-Sliced Design projects. You will learn where to place tests, how to test through [public APIs](/docs/reference/public-api), and what to focus on at each [layer](/docs/reference/layers).
+
+<Aside>
+
+This guide does not cover end-to-end testing. The focus is on unit tests for individual functions and modules, and integration tests for composed components and pages.
+
+</Aside>
+
+## Where to place tests
+
+Co-locate test files inside the slice they test. This keeps tests close to the code they verify and makes it easy to see which slices are covered.
+
+<FileTree>
+- features/
+  - add-to-cart/
+    - model/
+      - add-to-cart.ts
+      - add-to-cart.test.ts
+    - ui/
+      - AddToCartButton.tsx
+      - AddToCartButton.test.tsx
+    - index.ts
+</FileTree>
+
+Avoid creating a separate `__tests__` folder at the root or within slices. A centralized test directory detaches tests from the code they cover, making refactoring harder and increasing the chance of stale or orphaned tests.
+
+## Testing through public API
+
+Each slice exposes a [public API](/docs/reference/public-api) through its `index.ts` file. Tests should import from this public API whenever possible, not from internal segments.
+
+```ts title="features/add-to-cart/model/add-to-cart.test.ts"
+// Good: importing from the public API
+import { useAddToCart } from "../index";
+
+// Bad: importing from internal segments
+import { useAddToCart } from "./add-to-cart";
+```
+
+Testing through the public API has two benefits:
+
+1. **Stability.** Internal implementation details can change without breaking tests. The public API is the contract that other slices depend on, so it is the most valuable thing to test.
+
+2. **Encapsulation.** It reinforces the FSD principle that internals of a slice are private. If a test needs to reach into a segment directly, that may indicate the public API is incomplete.
+
+When testing UI components, you may need to import the component directly from its segment because it is not always re-exported individually. This is acceptable for UI tests. For business logic in the `model` segment, always test through the public API.
+
+## Testing individual layers
+
+Each FSD layer has a different role, and the testing strategy should reflect that.
+
+### Shared
+
+The Shared layer contains reusable infrastructure with no business logic. Tests here are straightforward unit tests.
+
+**Pure utilities.** Functions in `shared/lib` are typically pure and easy to test in isolation.
+
+```ts title="shared/lib/format-currency/format-currency.test.ts"
+import { formatCurrency } from "../index";
+
+test("formats USD amounts", () => {
+  expect(formatCurrency(1234.5, "USD")).toBe("$1,234.50");
+});
+
+test("throws for negative amounts", () => {
+  expect(() => formatCurrency(-1, "USD")).toThrow();
+});
+```
+
+**UI components.** Components in `shared/ui` should be tested for rendering and accessibility. Since these components have no knowledge of business logic, focus on prop variations and edge cases.
+
+```tsx title="shared/ui/Button/Button.test.tsx"
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { Button } from "../index";
+
+test("calls onClick when clicked", async () => {
+  const onClick = vi.fn();
+  render(<Button onClick={onClick}>Submit</Button>);
+  await userEvent.click(screen.getByRole("button", { name: "Submit" }));
+  expect(onClick)._calledOnce();
+});
+```
+
+### Entities
+
+The Entities layer holds business domain data: types, stores, and DTO mappers. Focus tests on business logic and data transformations.
+
+**Stores.** Test state transitions and selectors. Import store actions and selectors from the slice's public API.
+
+```ts title="entities/cart/model/cart.test.ts"
+import { cartActions, cartSelectors } from "../index";
+
+test("addItem adds a product to the cart", () => {
+  const state = createInitialState();
+  const updated = cartReducer(state, cartActions.addItem({ id: "1", quantity: 2 }));
+  expect(cartSelectors.totalItems(updated)).toBe(2);
+});
+```
+
+**DTO mappers.** If your entities contain mapper functions that transform backend responses, test them with realistic payloads.
+
+```ts title="entities/product/api/adapt-product.test.ts"
+import { adaptProduct } from "../index";
+
+test("maps snake_case DTO to camelCase", () => {
+  const dto = { id: 1, product_name: "Widget", unit_price: 9.99 };
+  const product = adaptProduct(dto);
+  expect(product).toEqual({ id: "1", name: "Widget", unitPrice: 9.99 });
+});
+```
+
+### Features
+
+The Features layer contains user interactions that change application state. Tests should verify that actions trigger the correct state changes and side effects.
+
+```ts title="features/add-to-cart/model/add-to-cart.test.ts"
+import { renderHook, act } from "@testing-library/react";
+import { useAddToCart } from "../index";
+
+test("adds product to cart on call", async () => {
+  const { result } = renderHook(() => useAddToCart());
+  await act(() => result.current.mutate({ productId: "1", quantity: 1 }));
+  expect(result.current.isSuccess).toBe(true);
+});
+```
+
+For features with UI components, test that the component dispatches the correct actions when interacted with. Mock the feature's internal logic rather than the entire store to keep tests focused.
+
+### Widgets
+
+The Widgets layer composes features and entities into cohesive UI blocks. Tests here are integration tests that verify multiple parts work together.
+
+```tsx title="widgets/product-card/ui/ProductCard.test.tsx"
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { ProductCard } from "../index";
+
+test("shows product info and adds to cart", async () => {
+  render(<ProductCard productId="1" />);
+  expect(screen.getByText("Widget")).toBeVisible();
+  await userEvent.click(screen.getByRole("button", { name: "Add to cart" }));
+  expect(screen.getByText("Added")).toBeVisible();
+});
+```
+
+When testing widgets, mock the slices from layers below (features, entities) at their public API boundary. This keeps widget tests independent of internal implementation changes in those slices.
+
+### Pages
+
+The Pages layer is responsible for layout and composition. Tests for pages are higher-level integration tests that verify the correct widgets and features are rendered in the right arrangement.
+
+For client-rendered pages, you can render the page component and assert that the expected widgets appear:
+
+```tsx title="pages/home/ui/HomePage.test.tsx"
+import { render, screen } from "@testing-library/react";
+import { HomePage } from "../index";
+
+test("renders hero and product list widgets", () => {
+  render(<HomePage />);
+  expect(screen.getByTestId("hero-widget")).toBeVisible();
+  expect(screen.getByTestId("product-list-widget")).toBeVisible();
+});
+```
+
+Page-level tests often overlap with widget tests. Prefer testing each widget thoroughly on its own, and keep page tests focused on layout and routing concerns.
+
+### App
+
+The App layer is the entry point of your application. It typically contains providers, global styles, and routing configuration. There is usually little value in writing automated tests for this layer. Verify that providers are wired correctly through integration tests at the page or widget level instead.
+
+## Mocking strategies
+
+Mocking in FSD should respect [the import rule on layers](/docs/reference/layers#import-rule-on-layers). A slice may only import from slices on layers strictly below it. Your mocks should follow the same rule.
+
+### Mocking a slice's public API
+
+The safest way to mock a dependency is to mock its public API. This tests the real contract that other slices depend on.
+
+<Tabs>
+<TabItem label="Vitest">
+
+```ts title="features/add-to-cart/model/add-to-cart.test.ts"
+import { vi } from "vitest";
+
+// Mock the entity's public API
+vi.mock("entities/cart", () => ({
+  cartActions: {
+    addItem: vi.fn(),
+  },
+  cartSelectors: {
+    totalItems: vi.fn(() => 0),
+  },
+}));
+```
+
+</TabItem>
+<TabItem label="Jest">
+
+```ts title="features/add-to-cart/model/add-to-cart.test.ts"
+// Mock the entity's public API
+jest.mock("entities/cart", () => ({
+  cartActions: {
+    addItem: jest.fn(),
+  },
+  cartSelectors: {
+    totalItems: jest.fn(() => 0),
+  },
+}));
+```
+
+</TabItem>
+</Tabs>
+
+### What not to mock
+
+Avoid mocking internal segments of other slices. If a test needs to mock `entities/cart/model/cart-store`, that is a sign the public API does not expose what consumers need. Fix the public API instead.
+
+Do not mock Shared layer utilities unless they involve network calls or browser APIs. Pure functions in `shared/lib` should use their real implementations in tests.
+
+### Mocking shared API clients
+
+When testing features or entities that make network requests, mock the API client at the `shared/api` boundary:
+
+```ts title="features/add-to-cart/model/add-to-cart.test.ts"
+import { vi } from "vitest";
+
+vi.mock("shared/api/cart", () => ({
+  postCartItem: vi.fn().mockResolvedValue({ id: "1", status: "added" }),
+}));
+```
+
+This lets you test the feature's logic (state updates, error handling) without making real requests, while keeping the mock at a well-defined boundary.
+
+## Using mock data
+
+Realistic test data keeps tests readable and maintainable. Two complementary approaches are test fixtures (static data or factory functions) and API-level mocking with tools like Mock Service Worker.
+
+### Test fixtures and factories
+
+Co-locate mock data with the slice that uses it. Place fixtures either in a dedicated `__fixtures__` folder or as a sibling file within the `model` segment:
+
+<FileTree>
+- entities/
+  - product/
+    - model/
+      - product.ts
+      - product.test.ts
+      - product.fixture.ts
+    - index.ts
+- shared/
+  - api/
+    - types.ts
+    - types.fixture.ts
+</FileTree>
+
+For data structures shared across slices (e.g. common DTOs), put fixtures in `shared/lib` or `shared/api` alongside the types they represent.
+
+**Static fixtures** are simple objects useful when the shape is fixed and every test uses the same data:
+
+```ts title="entities/product/model/product.fixture.ts"
+import type { Product } from "./product";
+
+export const sampleProduct: Product = {
+  id: "1",
+  name: "Widget",
+  unitPrice: 9.99,
+};
+```
+
+**Factory functions** produce varied data and let each test customize only the fields it cares about. Defaults cover required fields, and overrides fill in test-specific values:
+
+```ts title="entities/product/model/product.fixture.ts"
+import type { Product } from "./product";
+
+export function createProduct(overrides?: Partial<Product>): Product {
+  return {
+    id: "1",
+    name: "Widget",
+    unitPrice: 9.99,
+    ...overrides,
+  };
+}
+```
+
+```ts title="entities/product/model/product.test.ts"
+import { createProduct } from "./product.fixture";
+import { formatPrice } from "./product";
+
+test("formats the price with currency symbol", () => {
+  const product = createProduct({ unitPrice: 19.99 });
+  expect(formatPrice(product)).toBe("$19.99");
+});
+```
+
+Factories scale better than static fixtures as the number of tests grows. Prefer them when a type has many fields or when tests need different combinations of values.
+
+### API mocking with MSW
+
+[Mock Service Worker (MSW)](https://mswjs.io/) intercepts requests at the network level. This means your `shared/api` client code runs for real in tests, and only the actual HTTP request is stubbed. No need to mock internal API helpers.
+
+<Aside>
+
+MSW is not the only option. Libraries like [`nock`](https://github.com/nock/nock) or Vitest's built-in `vi.http` can achieve similar results. The principle is the same: mock at the network boundary, not at the module level.
+
+</Aside>
+
+Define handlers that describe how the mock server should respond to specific endpoints:
+
+```ts title="entities/product/api/product.handlers.ts"
+import { http, HttpResponse } from "msw";
+
+export const productHandlers = [
+  http.get("/api/products/:id", ({ params }) => {
+    return HttpResponse.json({
+      id: params.id,
+      name: "Widget",
+      unit_price: 9.99,
+    });
+  }),
+];
+```
+
+Use the handlers in a test setup file or directly inside individual tests:
+
+```ts title="entities/product/api/product.test.ts"
+import { http, HttpResponse } from "msw";
+import { setupServer } from "msw/node";
+import { fetchProduct } from "../model/product";
+
+const server = setupServer(
+  http.get("/api/products/:id", () => {
+    return HttpResponse.json({ id: "1", name: "Widget", unit_price: 9.99 });
+  })
+);
+
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+
+test("fetches and maps a product", async () => {
+  const product = await fetchProduct("1");
+  expect(product.name).toBe("Widget");
+});
+```
+
+For project-wide setup, register common handlers in a shared setup file (e.g. `src/test/msw-server.ts`) and import it from your test framework's global setup. Per-test overrides can call `server.use()` with specific handlers before each test.
+
+## Summary
+
+| Layer | What to test | How to test |
+| --- | --- | --- |
+| **Shared** | Pure utilities, UI components | Unit tests for logic, component rendering tests |
+| **Entities** | Business logic, stores, DTO mappers | Unit tests through public API |
+| **Features** | State changes, side effects, interactions | Unit tests for logic, integration tests for UI |
+| **Widgets** | Composition of features and entities | Integration tests, mock lower layers at public API |
+| **Pages** | Layout and routing, widget arrangement | Higher-level integration tests |
+| **App** | Provider wiring, global setup | Verify through page and widget tests |
+
+[the import rule on layers]: /docs/reference/layers#import-rule-on-layers
