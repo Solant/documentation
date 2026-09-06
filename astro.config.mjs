@@ -149,6 +149,11 @@ export default defineConfig({
                     href: "https://github.com/feature-sliced/documentation",
                 },
                 {
+                    icon: "telegram",
+                    label: "Telegram",
+                    href: "https://t.me/feature_sliced",
+                },
+                {
                     icon: "discord",
                     label: "Discord",
                     href: "https://discord.gg/S8MzWTUsmp",
